@@ -1,0 +1,77 @@
+step - 1:
+!pip install llama2
+step - 2 :
+import pandas as pd
+
+def read_csv_file(file_path):
+    try:
+        data = pd.read_csv(file_path)
+        return data
+    except Exception as e:
+        print(f"Error reading CSV file: {e}")
+        return None
+
+import pandas as pd
+
+def calculate_statistics(data):
+    mean = data.mean()
+    median = data.median()
+    mode = data.mode()
+    std_dev = data.std()
+    correlation_coefficient = data.corr()
+    
+    return mean, median, mode, std_dev, correlation_coefficient
+def generate_plots(data):
+    # Histogram
+    data.hist(bins=10)
+    plt.title("Histogram")
+    plt.show()
+    
+    # Scatter Plot
+    for col in data.columns:
+        plt.scatter(data.index, data[col])
+        plt.title(f"Scatter Plot of {col}")
+        plt.show()
+    
+    # Line Plot
+    for col in data.columns:
+        plt.plot(data.index, data[col])
+        plt.title(f"Line Plot of {col}")
+        plt.show()
+
+def answer_questions(data, question):
+    if question == "What is the mean of the data?":
+        answer = data.mean()
+    elif question == "What is the median of the data?":
+        answer = data.median()
+    elif question == "What is the mode of the data?":
+        answer = data.mode()
+    elif question == "What is the standard deviation of the data?":
+        answer = data.std()
+    else:
+        answer = "I don't know the answer to that question."
+    
+    return answer
+step - 3:
+import pandas as pd
+import matplotlib.pyplot as plt
+import llama2
+
+def main():
+    # Read and parse the CSV file
+    file_path = "price.csv"
+    data = read_csv_file(file_path)
+    
+    # Perform basic statistical analysis
+    mean, median, mode, std_dev, correlation_coefficient = calculate_statistics(data)
+    
+    # Generate plots
+    generate_plots(data)
+    
+    # Answer questions about the data
+    question = input()
+    answer = answer_questions(data, question)
+    print(answer)
+
+if __name__ == "__main__":
+    main()
